@@ -1,0 +1,11 @@
+Here is a list of npm commands for creating a new project.
+
+
+npm create vite@latest MyAppName
+
+
+npm install @reduxjs/toolkit
+npm install react-redux
+
+npm run dev
+npm run build
