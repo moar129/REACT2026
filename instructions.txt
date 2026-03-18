@@ -1,5 +1,6 @@
-Here is a list of npm commands for creating a new project.
 
+# Here is a list of npm commands for creating a new project.
+==========================================================
 
 npm create vite@latest MyAppName
 
@@ -9,3 +10,315 @@ npm install react-redux
 
 npm run dev
 npm run build
+
+
+# Questions to ask.
+===========================================================
+
+## What is React?
+- React is an open-source JavaScript library used for building user interfaces, developed and maintained by Meta Platforms.
+- React lets us build UIs using components. small reusable pieces of code that each control a part of the interface.
+
+
+#### React is a tool that helps developers build fast, interactive, and maintainable user interfaces using reusable components.
+
+### Why developers use React?
+- Efficient updates (fast UI rendering)
+- Reusable components = less duplicated code
+- Large ecosystem (libraries, tools)
+- Strong community support
+
+### Some sites that use React:
+- Facebook
+- Instagram
+- WhatsApp
+
+## When to use React ?
+- Use React when your application’s UI is dynamic, stateful, and benefits from component-based architecture. It’s not the default choice for everything
+##### If your interface changes frequently based on user actions:
+- Dashboards (filters, charts updating live)
+- Form-heavy apps with validation
+- Real-time feeds or notifications
+
+#### Large or complex frontends:
+- Has many moving parts
+- Needs to be split into reusable components
+- Will grow over time
+
+#### Single Page Applications
+If you’re building an app where:
+- Pages don’t fully reload
+- Navigation feels instant
+
+##### Use React when you’re building a complex, interactive web interface where the UI updates frequently based on user actions or changing data, and you want to organize it into reusable, maintainable components.
+===========================================================
+
+
+## What is React components?
+- React components are the fundamental building blocks of React, they are self-contained, reusable pieces of UI that define how a part of your interface looks and behaves.
+
+* Reusable
+- Write once, use multiple times.
+
+* Isolated
+- Each component manages its own logic and doesn’t interfere with others.
+
+* Composable
+- You can combine components to build complex UIs
+
+* Dynamic (via props & state)
+Components can:
+- Receive data (props)
+- Manage internal data (state)
+
+##### A React component is a reusable, self-contained piece of UI that controls how a part of your app looks and behaves.
+
+## What is a State and what is Props ?
+
+### State
+State is data that belongs to a component and can change over time.
+#### Key idea:
+- Managed inside the component
+- Can be updated (using functions like setState or useState)
+- When it changes → the UI re-renders
+
+### Props
+Props (short for properties) are data passed from one component to another.
+#### Key idea:
+- Passed from parent → child
+- Read-only (cannot be changed by the child)
+- Used to customize components
+
+###Simple analogy
+- Props = inputs (like function arguments)
+- State = internal memory (like variables inside the function)
+
+#### State = data a component manages and can change
+#### Props = data a component receives and cannot change
+
+
+## How to use React components?
+- Using React components means creating reusable UI blocks and then rendering them inside other components.
+
+#### 1. Create a component
+A component is just a JavaScript function that returns JSX
+```function Greeting() {
+  return <h1>Hello!</h1>;
+}```
+
+#### 2. Use (render) the component
+You use it like a custom HTML tag
+```function App() {
+  return (
+    <div>
+      <Greeting />
+    </div>
+  );
+}```
+
+#### 3. Pass data with props
+Make components dynamic by passing values
+```function Greeting(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+function App() {
+  return <Greeting name="Alice" />;
+}```
+
+#### 4. Add state for interactivity
+Use state when the component needs to change over time
+``` import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </button>
+  );
+} ```
+
+#### 5. Combine components
+Build complex UIs by combining smaller ones
+``` function Header() {
+  return <h1>My App</h1>;
+}
+
+function App() {
+  return (
+    <div>
+      <Header />
+      <Greeting name="Alice" />
+    </div>
+  );
+} ```
+
+#### 6. Reuse components
+Use the same component multiple times with different data
+```
+<Greeting name="Alice" />
+<Greeting name="Bob" />
+<Greeting name="Charlie" />
+```
+
+#### Mental model
+- Create small components
+- Pass data via props
+- Manage changes with state
+- Combine everything into a full UI
+
+##### You use React components by creating reusable UI functions and rendering them like custom HTML elements, passing data with props and handling changes with state.
+
+
+What are Reducers in React/Redux ?
+
+Reducer is a pure function that defines how state changes in response to actions. 
+It’s a core concept in Redux Toolkit and Redux-style state management.
+
+
+1. Key points
+- Pure function → output depends only on input, no side effects
+- Takes current state and action → returns new state
+- Doesn’t directly mutate the state (Redux Toolkit uses Immer internally to allow safe mutations)
+
+2. Function signature
+- currentState → the existing state of the slice
+- action → an object describing the change { type: 'increment', payload: 1 }
+- newState → the updated state returned by the reducer
+
+3. Why use reducers?
+- Centralize and organize state updates
+- Make state predictable and testable
+- Keep UI logic separate from state logic
+- Useful for complex or global state
+
+4. Mental model
+- Action = “what happened”
+- Reducer = “how state changes because of that action”
+- State = “current snapshot of data”
+
+##### A reducer is a pure function that takes the current state and an action, and returns a new state, defining how data in your app changes predictably.
+===========================================================
+
+
+
+## What and when to use react page ?
+In React, a “React page” isn’t an official concept, it usually means a top-level component that represents a full screen or route in your app.
+Think of it as the container for a whole view, built from smaller components.
+### 1. What is a React page?
+* A React page is:
+- A component mapped to a route (URL)
+- Represents a full screen (e.g. Home, About, Dashboard)
+
+### 2. When to use a React page
+Use a “page” when:
+- 1. You need a new route (URL)
+- 2. You’re building full screens
+        - Pages represent entire views, not small UI pieces.
+- 3. You want to organize your app
+     Separate logic by screens:
+     - HomePage
+     - LoginPage
+     - ProductPage
+- 4. You’re working with routing frameworks (Next.js (file-based pages), React Router (manual routes))
+
+##### A React page is a top-level component tied to a route that represents a full screen, built by combining smaller components.
+
+
+
+
+## What and when to use slice in react ?
+
+### 1. What is a slice?
+A slice is a piece of your global state + the logic that manages it, all grouped together.
+It includes:
+- State (data)
+- Reducers (how state changes)
+- Actions (what triggers changes)
+
+#### What it means in simple terms
+- “Everything related to one feature’s state in one place.”
+Example slices:
+- userSlice → user data, login/logout
+- cartSlice → shopping cart items
+- themeSlice → dark/light mode
+
+### 2. When to use slices
+1. When your app has shared/global state
+If multiple components need the same data:
+- Logged-in user
+- Shopping cart
+- App settings
+
+2. When state becomes complex
+If you have:
+- Many useState calls
+- Deep prop passing (prop drilling)
+
+3. When building medium → large apps
+For apps like:
+- Dashboards
+- E-commerce
+- SaaS platforms
+
+4. When you want predictable state updates
+Redux slices enforce:
+- Clear structure
+- Debuggable state changes
+
+### When NOT to use slices
+Avoid slices if:
+1. Your app is small
+2. State is local to one component
+3. You can handle everything with useState or useContext
+
+
+##### A slice is a self-contained piece of global state and its logic, used when your app needs structured and shared state management.
+===========================================================
+
+
+
+## What is react hooks ?
+Hooks are special functions in React that let you “hook into” React features—like state, lifecycle methods, and context—inside functional components.
+Before Hooks, only class components could manage state and lifecycle; Hooks let functional components do the same.
+
+1. Why use Hooks?
+- Use state in functional components (useState)
+- Perform side effects (useEffect)
+- Access context (useContext)
+- Avoid class components and simplify code
+- Share logic between components using custom hooks
+
+2. Common built-in Hooks:
+Hook	                Purpose
+useState	            Add and manage component state
+useEffect	            Handle side effects (data fetching, subscriptions)
+useContext	            Access React Context values
+useReducer	            Manage complex state logic (like a mini Redux)
+useRef	                Reference DOM elements or store mutable values
+useMemo	                Memoize expensive calculations
+useCallback	            Memoize functions to avoid unnecessary re-renders
+
+
+3. Custom Hooks
+You can create your own hooks to reuse logic
+
+4. Rules of Hooks
+- Only call hooks at the top level of a component or custom hook
+- Only call hooks inside React functional components (or other hooks)
+- Don’t call hooks inside loops, conditions, or nested functions
+
+
+##### Hooks are special functions that let functional components manage state, side effects, and other React features without using classes.
+===========================================================
+
+## When to use react redux stor?
+
+## How to use react redux stor?
+===========================================================
+## What is react redux thunk?
+
+## When do we use react redux thunk?
+===========================================================
