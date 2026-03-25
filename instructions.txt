@@ -218,7 +218,7 @@ Use a “page” when:
 - 2. You’re building full screens
         - Pages represent entire views, not small UI pieces.
 - 3. You want to organize your app
-     Separate logic by screens:
+    Separate logic by screens:
      - HomePage
      - LoginPage
      - ProductPage

@@ -1,0 +1,4 @@
+Save the file and compile the ts file and execute the JS file with:
+    tsc simple-typescript.ts
+and run it with: 
+    node simple-typescript.js
