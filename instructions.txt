@@ -314,11 +314,254 @@ You can create your own hooks to reuse logic
 ##### Hooks are special functions that let functional components manage state, side effects, and other React features without using classes.
 ===========================================================
 
-## When to use react redux stor?
+## When to use react redux store?
+###Global State Sharing Across Many Components:
+If multiple components at different levels of your component tree need access to the same state, Redux can prevent “prop drilling.”
 
-## How to use react redux stor?
+### Complex State Logic:
+When state updates are complex, involve multiple actions, or require careful handling of side effects.
+
+### Predictable State Management
+1. Redux enforces a single source of truth (store) and immutable state updates, making it easier to track changes.
+2. Useful in large apps where debugging and tracking state transitions is crucial.
+3. Tools like Redux DevTools allow you to trace every action and state change.
+
+### Cross-Component Communication
+When you need components that don’t have a direct parent-child relationship to share and respond to state changes.
+
+### Server-State Synchronization
+Redux can be paired with middleware like redux-thunk to handle async actions and API calls systematically.
+
+### Team Collaboration in Large Projects
+In large teams, using Redux standardizes state management patterns across the app, making it easier for multiple developers to work on the same codebase.
+
+##When Not to Use Redux
+1. Small or medium apps where state is mostly local or simple.
+2. When you only need to pass state between a few components (use useState or useContext instead).
+3. Overhead of Redux (boilerplate + learning curve) is not justified.
+
+## How to use react redux store?
+
+
+1. Install Redux and React-Redux
+npm install @reduxjs/toolkit react-redux
+@reduxjs/toolkit (RTK) is the official, modern way to write Redux logic. It reduces boilerplate.
+
+
+2. Create a Redux Slice
+A slice combines state, reducers, and actions in one place.
+´´´
+// store/counterSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = { value: 0 };
+
+export const counterSlice = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment: (state) => { state.value += 1 },
+    decrement: (state) => { state.value -= 1 },
+    reset: (state) => { state.value = 0 },
+  },
+});
+
+export const { increment, decrement, reset } = counterSlice.actions;
+
+export default counterSlice.reducer;
+´´´
+
+3. Configure the Store
+Combine slices (reducers) and create the Redux store.
+´´´´
+// store/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counterSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+´´´
+
+4. Provide the Store to React
+Wrap your app with <Provider> so Redux is available to all components.
+´´´´
+// index.js or App.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import App from './App';
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+´´´
+
+5. Use Redux State in Components
+Use useSelector to read state and useDispatch to send actions.
+´´´
+// components/Counter.js
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, reset } from '../store/counterSlice';
+
+export default function Counter() {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={() => dispatch(increment())}>+1</button>
+      <button onClick={() => dispatch(decrement())}>-1</button>
+      <button onClick={() => dispatch(reset())}>Reset</button>
+    </div>
+  );
+}
+´´´
+
+6. Handle Async Actions
+Use redux-thunk (built into RTK) for async operations:
+´´´
+// Example: fetch data
+export const fetchData = () => async (dispatch) => {
+  dispatch(fetchStart());
+  try {
+    const res = await fetch('https://api.example.com/data');
+    const data = await res.json();
+    dispatch(fetchSuccess(data));
+  } catch (err) {
+    dispatch(fetchError(err.toString()));
+  }
+};
+´´´
+
+###### Create a store with configureStore, wrap your app in <Provider>, define slices with createSlice, and access state with useSelector while dispatching actions with useDispatch
 ===========================================================
 ## What is react redux thunk?
+React Redux Thunk is a middleware for Redux that lets you write asynchronous logic (like API calls) inside your Redux actions instead of only plain synchronous actions.
+Key Points:
+
+1. Purpose:
+By default, Redux actions must be plain objects.
+Thunk allows you to dispatch functions that can perform async operations, then dispatch normal actions when done.
+
+2. How It Works:
+You write an action as a function: (dispatch, getState) => { … }
+Inside it, you can do async tasks, like fetching data, waiting for promises, or conditional dispatching.
+
+3. Example:
+´´´
+// Async action using thunk
+export const fetchUser = (userId) => async (dispatch) => {
+  dispatch({ type: 'user/fetchStart' });
+  try {
+    const res = await fetch(`https://api.example.com/users/${userId}`);
+    const data = await res.json();
+    dispatch({ type: 'user/fetchSuccess', payload: data });
+  } catch (err) {
+    dispatch({ type: 'user/fetchError', payload: err.message });
+  }
+};
+´´´
+
+4. Usage in React Redux Toolkit:
+Thunk is included by default in RTK’s configureStore, so you usually don’t need extra setup.
+You just define async thunks or functions and dispatch them like normal actions.
+
+##### “Redux Thunk allows you to dispatch functions (not just objects) so you can handle asynchronous operations like API calls inside Redux.”
 
 ## When do we use react redux thunk?
+1. Async Data Fetching
+- When you need to fetch data from an API or database and then store it in Redux.
+- Example: Fetching user info, product lists, or posts before rendering components.
+
+2. Conditional Dispatching
+- When actions depend on current state or other conditions.
+
+3. Chained Actions / Sequential Logic
+- When one action needs to run after another completes, especially async actions.
+- Example: Fetch user → then fetch user’s posts.
+
+4. Side Effects Handling
+- Any logic that happens outside the reducer but affects state.
+- Example: Logging, caching, or localStorage updates after an action.
+
+5. Complex App Workflows
+- In large apps, Thunk makes it easy to centralize async logic instead of scattering it across components.
+
+##### Use Redux Thunk when a Redux action needs to do asynchronous work, conditional logic, or side effects before updating the store fx. when using apis.
 ===========================================================
+
+
+## TypeScript (.ts)
+TypeScript (TS) is a superset of JavaScript that adds static typing and other features to make large-scale app development safer and more maintainable.
+
+1. Key Features
+- Static Types: Variables, function parameters, and return values can have types (string, number, boolean, etc.)
+- Type Inference: TS automatically infers types if you don’t explicitly define them.
+- Interfaces & Types: Define custom object shapes for better type safety.
+- Enums: Named constants for better readability.
+- Generics: Create reusable, type-safe functions or components.
+- Modules & Namespaces: Organize code cleanly.
+- Tooling: Excellent IDE support (VS Code autocomplete, type checking, error detection before runtime).
+
+2. Basic Syntax Examples
+- Variables with types:
+´´´
+let name: string = "Alice";
+let age: number = 25;
+let isActive: boolean = true;
+´´´
+- Function with typed parameters and return:
+´´´
+function add(a: number, b: number): number {
+  return a + b;
+}
+´´´
+
+- Interface for objects:
+´´´
+interface User {
+  id: number;
+  name: string;
+  email?: string; // optional property
+}
+
+const user: User = { id: 1, name: "Bob" };
+´´´
+
+- Enum example:
+´´´
+enum Role { Admin, User, Guest }
+let currentRole: Role = Role.Admin;
+´´´
+
+- Generic function:
+´´´
+function identity<T>(arg: T): T {
+  return arg;
+}
+const result = identity<number>(42);
+´´´
+
+
+3. Advantages
+- Catches errors early (compile-time instead of runtime).
+- Improves readability and maintainability in large projects.
+- Better IDE support with autocomplete and intelligent refactoring.
+- Seamless integration with JS (you can gradually adopt it).
+
+4. When to Use
+- Large-scale applications with multiple developers.
+- Projects that involve complex data structures or API responses.
+- When you want safer refactoring and better tooling support.
+- React projects benefit a lot from TS for typed props, state, and Redux stores.
+
+##### TypeScript is a statically typed superset of JavaScript that adds type safety, interfaces, enums, and tooling to improve code quality and maintainability
