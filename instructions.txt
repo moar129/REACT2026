@@ -7,6 +7,10 @@ npm create vite@latest MyAppName
 
 npm install @reduxjs/toolkit
 npm install react-redux
+npm install --save react-router-dom
+
+
+npm install @reduxjs/toolkit react-redux react-router-dom
 
 npm install
 npm run dev
