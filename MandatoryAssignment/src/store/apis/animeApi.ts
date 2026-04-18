@@ -6,8 +6,8 @@ export const animeApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://api.jikan.moe/v4/' }),
     endpoints: (builder) => ({
         // Fetch top anime
-        fetchTopAnime: builder.query<IAnimeListResponse, void>({
-            query: () => 'top/anime?limit=20',
+        fetchTopAnime: builder.query<IAnimeListResponse, string>({
+            query: (filter) => `top/anime?limit=20${filter ? `&type=${filter}` : ''}`,
         }),
         // Fetch anime by search term
         fetchSearchAnime: builder.query<IAnimeListResponse, string>({

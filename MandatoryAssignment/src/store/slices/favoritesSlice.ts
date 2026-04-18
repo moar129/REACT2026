@@ -6,17 +6,17 @@ import type { IAnime } from '../../types/animeType';
 const favoritesSlice = createSlice({
     name: 'favorites',
     initialState: {
-        animeItem: [] as IAnime[],        
+        animeItems: [] as IAnime[],        
     },
     reducers:{
         addFavorite: (state, action) => {
-            const exist = state.animeItem.find(anime => anime.mal_id === action.payload.mal_id);
+            const exist = state.animeItems.find(anime => anime.mal_id === action.payload.mal_id);
             if (!exist) {
-                state.animeItem.push(action.payload);
+                state.animeItems.push(action.payload);
             }
         },
         removeFavorite: (state, action) => {
-            state.animeItem = state.animeItem.filter(anime => anime.mal_id !== action.payload);
+            state.animeItems = state.animeItems.filter(anime => anime.mal_id !== action.payload);
         },
     }
 });

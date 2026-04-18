@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 // useLocation is used to determine the current path for active link styling. We can use it to compare the current path with the link's path and apply different styles accordingly.
 import { Home, Search, Heart } from 'lucide-react' // Importing icons from lucide-react for use in the navigation bar
 
+
+
 function Navbar() {
 
     // uselocation hook to get the current path and determine which link is active for styling purposes
