@@ -17,6 +17,15 @@ npm run dev
 npm run build
 
 
+npm install lucide-react                            ikonbibliotek til React
+npm install -D tailwindcss @tailwindcss/vite        installl tailwindcss
+
+
+import tailwindcss from '@tailwindcss/vite'         indsættes i vite.config.ts
+tailwindcss(),                                      indsættes i vite.config.ts
+@import "tailwindcss";                              indsættes i index.css
+
+
 # Questions to ask.
 ===========================================================
 
