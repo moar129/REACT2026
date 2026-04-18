@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx';
 
 
+
 // Select the root HTML element
 const rootElement = document.getElementById('root');
 // Create a React root
