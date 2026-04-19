@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { IAnimeListResponse, IAnimeDetailResponse } from '../../types/animeType';
+import type { IAnimeListResponse, IAnimeDetailResponse, IGenreListResponse } from '../../types/animeType';
 
 export const animeApi = createApi({
     reducerPath: 'animeApi',
@@ -17,11 +17,12 @@ export const animeApi = createApi({
             }),
         }),
         // Fetch anime by search term
-        fetchSearchAnime: builder.query<IAnimeListResponse, string>({
-            query: (searchTerm) => ({
+        fetchSearchAnime: builder.query<IAnimeListResponse, { searchTerm: string; genreId: string }>({
+            query: ({ searchTerm, genreId }) => ({
                 url: 'anime',
                 params: {
-                    q: searchTerm,
+                    q: searchTerm || undefined,
+                    genres: genreId || undefined,
                     limit: 20,
                 },
                 method: 'GET',
@@ -34,6 +35,26 @@ export const animeApi = createApi({
                 method: 'GET',
             }),
         }),
+        // Fetch anime genres
+        fetchAnimeGenres: builder.query<IGenreListResponse, void>({
+            query: () => ({
+                url: 'genres/anime',
+                method: 'GET',
+            }),
+        }),
+        // Fetch anime by genre ID
+        fetchAnimeByGenre: builder.query<IAnimeListResponse, string>({
+            query: (genreId) => ({
+                url: 'anime',
+                params: {
+                    genres: genreId,
+                    limit: 20,
+                    order_by: 'score',
+                    sort: 'desc',
+                },
+                method: 'GET',
+            }),
+        }),
     }),
 });
 
@@ -41,4 +62,6 @@ export const {
     useFetchTopAnimeQuery,
     useFetchSearchAnimeQuery,
     useFetchAnimeByIdQuery,
+    useFetchAnimeGenresQuery,
+    useFetchAnimeByGenreQuery,
 } = animeApi;

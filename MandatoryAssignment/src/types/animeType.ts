@@ -30,3 +30,7 @@ export interface IAnimeListResponse {
 export interface IAnimeDetailResponse {
     data: IAnime;
 }
+
+export interface IGenreListResponse {
+    data: IGenre[];
+}
