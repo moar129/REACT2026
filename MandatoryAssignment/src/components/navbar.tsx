@@ -1,20 +1,18 @@
 import { Link, useLocation } from 'react-router-dom'
-// link is used to navigate between pages without reloading, instead of using <a> tags which would cause a full page reload
-// useLocation is used to determine the current path for active link styling. We can use it to compare the current path with the link's path and apply different styles accordingly.
-import { Home, Search, Heart } from 'lucide-react' // Importing icons from lucide-react for use in the navigation bar
+// link bruges til at lave navigationslinks i stedet for almindelige <a> tags, fordi det forhindrer siden i at reloade og i stedet håndterer navigationen internt i React
+// useLocation er en hook der giver os adgang til den nuværende URL, som vi bruges til at style det aktive link i navigationen
+import { Home, Search, Heart } from 'lucide-react' // importer ikoner fra lucide-react biblioteket, som vi bruger i vores navigation
 
 
 
 function Navbar() {
 
-    // uselocation hook to get the current path and determine which link is active for styling purposes
-    // pathname gives us the current URL path, which we can compare against our link paths to apply active styles
-    // linkClass is a helper function that we have defined. it takes path as an argument and returns a string of class names. 
-
+    // pathname giver os den nuværende URL path, som vi kan sammenligne med vores link paths for at anvende aktive styles
+    // linkClass er en hjælpefunktion som vi har defineret. den tager path som argument og returnerer en string af class navne.
     const location = useLocation()
 
     const linkClass = (path: string) =>
-        `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${location.pathname === path // if the current path matches the link's path, we apply active styles, otherwise we apply default styles with hover effects
+        `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${location.pathname === path 
             ? 'bg-rose-accent text-white' // active styles
             : 'text-gray-400 hover:text-white hover:bg-white/10' // default styles with hover effects
         }`
