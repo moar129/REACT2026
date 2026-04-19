@@ -27,7 +27,7 @@ function AnimeDetailPage() {
 
     if (isLoading) return <LoadingSpinner />
     if (isError) return <ErrorMessage />
-    if (!data) return null
+    if (!data) return null // Siger at hvis data er undefined eller null, så renderes der ingenting. skal haves, ellers skal vi ? hver gang vi bruger data.
 
     const anime = data.data
 
