@@ -1,10 +1,10 @@
-# 📖 Begrebsordbog — AniTrack React App
+# Begrebsordbog — AniTrack React App
 
 Alle begreber forklaret i et sprog en studerende kan forstå.
 
 ---
 
-# ⚛️ REACT BEGREBER
+# REACT BEGREBER
 
 ---
 
@@ -34,12 +34,13 @@ function HomePage() {
 
 ---
 
-## JSX
-JSX er en syntaks der lader os skrive HTML inde i JavaScript.
-Det ser ud som HTML men er faktisk JavaScript bag scenen.
+## TSX
+TSX er en syntaks der lader os skrive HTML inde i TypeScript.
+Det ser ud som HTML men er faktisk TypeScript som bliver lavet om til JavaScript filer.
+Det kan dermed bruges på en hjemmeside, alt dette sker bag scenen.
 
 ```tsx
-// JSX — ligner HTML
+// TSX — ligner HTML
 const element = <h1 className="text-white">Hej verden</h1>
 
 // Bag scenen kompileres det til dette JavaScript
@@ -48,39 +49,42 @@ const element = React.createElement('h1', { className: 'text-white' }, 'Hej verd
 
 **Vigtige forskelle fra HTML:**
 ```tsx
-// I HTML skriver man:    I JSX skriver man:
+// I HTML skriver man:    I TSX skriver man:
 class="..."          →   className="..."
 for="..."            →   htmlFor="..."
 onclick="..."        →   onClick={...}
 style="color:red"    →   style={{ color: 'red' }}
 ```
 
-**Krøllede parenteser `{}` i JSX:**
+**Krøllede parenteser `{}` i TSX:**
 ```tsx
-// {} betyder "her kommer JavaScript"
+// {} betyder "her kommer TypeScript"
 <h1>{anime.title}</h1>           // Vis variabel
 <p>{2 + 2}</p>                   // Regnestykke → viser 4
 {isLoading && <Spinner />}       // Konditionel rendering
 ```
-
+**Krøllede parenteser `&&` i TSX:**
+```tsx
+{isLoading && <Spinner />} // && i eksemplet siger bare at hvis isLoading er true kør <Spinner />
+```
 ---
 
 ## Props
-Props er data der sendes fra en forælderkomponent til en børnekomponent.
+Props er data der sendes fra en parent-komponent til en child-komponent.
 Tænk på props som argumenter til en funktion.
 
 ```tsx
-// Forælder sender data med som props
+// Parent sender data med som props
 <AnimeCard anime={anime} />
 
-// Barn modtager data via props
+// Child modtager data via props
 function AnimeCard({ anime }: { anime: IAnime }) {
     return <h3>{anime.title}</h3>
 }
 ```
 
 **Vigtige regler om props:**
-- Props flyder kun én vej — fra forælder til barn
+- Props flyder kun én vej — fra parent til child og ikke den anden vej.
 - Props kan ikke ændres af barnet — de er read-only
 - Vil man sende data opad, sender man en funktion som prop
 
@@ -175,7 +179,7 @@ function PageHeader({ icon: Icon, title }: { icon: LucideIcon, title: string }) 
 
 ---
 
-# 🔀 REACT ROUTER BEGREBER
+# REACT ROUTER BEGREBER
 
 ---
 
@@ -185,16 +189,16 @@ Navigation sker ved at JavaScript opdaterer indholdet — ikke ved at indlæse n
 
 ```
 Traditionel hjemmeside:
-Bruger klikker "Søg" → Browser beder server om /search.html
-                      → Server sender ny HTML fil
-                      → Browser genindlæser alt fra bunden
-                      → Alt data tabt, alt skal hentes igen
+Bruger klikker "Søg"    → Browser beder server om /search.html
+                        → Server sender ny HTML fil
+                        → Browser genindlæser alt fra bunden
+                        → Alt data tabt, alt skal hentes igen
 
 SPA med React Router:
-Bruger klikker "Søg" → JavaScript opdaterer URL til /search
-                      → React viser SearchPage komponenten
-                      → Ingen server kontakt, ingen reload
-                      → Redux data og RTK-Query cache bevares
+Bruger klikker "Søg"    → JavaScript opdaterer URL til /search
+                        → React viser SearchPage komponenten
+                        → Ingen server kontakt, ingen reload
+                        → Redux data og RTK-Query cache bevares
 ```
 
 ---
@@ -219,7 +223,7 @@ Routing bestemmer hvilken komponent der vises baseret på URL'en.
 ---
 
 ## Dynamisk route med `:id`
-`:id` er en pladsholder i URL'en — den kan være hvad som helst.
+`:id` er en placeholder i URL'en — den kan være hvad som helst.
 
 ```tsx
 // Route definition
@@ -302,7 +306,7 @@ navigate(-1)        // Gå én side tilbage
 
 ---
 
-# 🗃️ REDUX BEGREBER
+# REDUX BEGREBER
 
 ---
 
@@ -313,19 +317,19 @@ Det løser problemet med at sende data op og ned gennem mange komponenter.
 ```
 Problem uden Redux (prop drilling):
 App → Page → Section → List → Item → (vil tilføje favorit?)
-  Skal sende funktion ned ALLE lag ❌
+Skal sende funktion ned ALLE lag 
 
 Løsning med Redux:
 Item → dispatch(addFavorite) → Redux Store
 FavoritesPage → useSelector → Redux Store
-Ingen mellemmænd! ✅
+Ingen mellemmænd! 
 ```
 
 ---
 
 ## Store
 Store er selve datalageret — det centrale sted al data er gemt.
-Der er kun ét store i hele appen.
+Der er kun en store i hele appen.
 
 ```ts
 export const store = configureStore({
@@ -382,7 +386,7 @@ En slice er en samling af reducer logik og actions for én del af store.
 ```ts
 const favoritesSlice = createSlice({
     name: 'favorites',                        // Navn på slice
-    initialState: { animeItem: [] as IAnime[] }, // Startdata
+    initialState: { animeItems: [] as IAnime[] }, // Startdata
     reducers: {                               // Handlinger der kan udføres
         addFavorite: (state, action) => { ... },
         removeFavorite: (state, action) => { ... },
@@ -456,7 +460,7 @@ const favorites = useSelector((state: RootState) => state.favorites.animeItem)
 
 ---
 
-# 🌐 RTK-QUERY BEGREBER
+# RTK-QUERY BEGREBER
 
 ---
 
@@ -480,7 +484,7 @@ useEffect(() => {
 
 Med RTK-Query — automatisk håndtering:
 const { data, isLoading, isError } = useFetchTopAnimeQuery()
-// Færdig! RTK-Query håndterer alt ✅
+// Færdig! RTK-Query håndterer alt.
 ```
 
 ---
@@ -587,7 +591,7 @@ Bruger går til HomePage:
     → RTK-Query sender API kald → gemmer i cache
 
 Bruger går til SearchPage og tilbage til HomePage:
-    → RTK-Query returnerer cached data ✅
+    → RTK-Query returnerer cached data
     → Ingen spinner, ingen ventetid!
 
 Efter 60 sekunder:
@@ -603,7 +607,7 @@ Lader RTK-Query bygge URL parametre automatisk.
 
 ```ts
 params: {
-    q: searchTerm || undefined,    // '' → undefined → sendes ikke med
+    q: searchTerm || undefined,    // '' → undefined → sendes ikke med || q er fra api'en og står for query, som bruges til fritekstsøgning
     genres: genreId || undefined,  // '' → undefined → sendes ikke med
     limit: 25,                     // Sendes altid med
 }
@@ -619,7 +623,7 @@ params: {
 
 ---
 
-# 📝 TYPESCRIPT BEGREBER
+# TYPESCRIPT BEGREBER
 
 ---
 
@@ -632,13 +636,13 @@ Det hjælper os med at fange fejl FØR koden kører.
 function visScore(anime) {
     return anime.score.toFixed(1)
 }
-visScore(null) // 💥 Crasher når det kører
+visScore(null) // Crasher når det kører
 
 // TypeScript — fejl opdages med det samme
 function visScore(anime: IAnime) {
     return anime.score.toFixed(1)
 }
-visScore(null) // ❌ TypeScript fejl: null er ikke IAnime
+visScore(null) // TypeScript fejl: null er ikke IAnime
 ```
 
 ---
@@ -662,7 +666,7 @@ interface IAnime {
 const anime: IAnime = {
     mal_id: 21,
     title: "Naruto",
-    // ❌ Fejl! score mangler
+    // Fejl! score mangler
 }
 ```
 
@@ -730,7 +734,7 @@ const filter: string = 'tv'
 
 // TypeScript gætter typen fra startværdien
 const filter = 'tv'
-// TypeScript ved automatisk at filter er string ✅
+// TypeScript ved automatisk at filter er string
 
 // RTK-Query infererer action.payload typen fra reduceren
 addFavorite: (state, action) => {
@@ -740,7 +744,7 @@ addFavorite: (state, action) => {
 
 ---
 
-# 🔤 JAVASCRIPT OPERATORER
+# JAVASCRIPT OPERATORER
 
 ---
 
@@ -780,8 +784,8 @@ Som `||` men reagerer KUN på `null` og `undefined` — ikke på `0` eller `''`.
 
 ```ts
 // Med ||
-0 || 'ingen score'    // → 'ingen score' ❌ (0 er falsy)
-'' || 'ingen titel'   // → 'ingen titel' ❌ ('' er falsy)
+0 || 'ingen score'    // → 'ingen score' (0 er falsy)
+'' || 'ingen titel'   // → 'ingen titel' ('' er falsy)
 
 // Med ??
 0 ?? 'ingen score'    // → 0 ✅ (0 er ikke null/undefined)
@@ -799,13 +803,14 @@ anime.synopsis ?? 'Ingen synopsis tilgængelig.'
 ## `?.` — Optional chaining
 Stopper og returnerer `undefined` hvis en værdi er `null` eller `undefined`.
 Forhindrer app crash ved manglende data.
+Vi tillader `undefined` og `null`
 
 ```ts
 // Uden optional chaining — kan crashe
-location.state.genreName // 💥 crash hvis state er null
+location.state.genreName // crash hvis state er null
 
 // Med optional chaining — sikker
-location.state?.genreName // undefined hvis state er null ✅
+location.state?.genreName // undefined hvis state er null
 
 // Kædet optional chaining
 genreData?.data?.find(g => g.mal_id === id)?.name
@@ -938,8 +943,8 @@ Forhindrer at en hændelse "bobler op" til forælderelementet.
 </Link>
 
 // Med stopPropagation:
-// Klik på genre → kun genre link kører ✅
-// Klik på resten af kortet → kun AnimeCard link kører ✅
+// Klik på genre → kun genre link kører
+// Klik på resten af kortet → kun AnimeCard link kører
 ```
 
 ---
@@ -982,12 +987,12 @@ const combined = [...existingAnime, ...newAnime]
 
 ---
 
-# 🎨 TAILWIND CSS BEGREBER
+# TAILWIND CSS BEGREBER
 
 ---
 
 ## Utility-first CSS
-Tailwind bruger mange små klasser der hver gør én ting.
+Tailwind bruger mange små klasser, der hver gør én ting.
 Du kombinerer dem til at style elementer.
 
 ```tsx
@@ -1046,7 +1051,7 @@ Vil du ændre accentfarven? Ret ét sted → slår igennem i hele appen.
 
 ---
 
-# 📁 ARKITEKTUR BEGREBER
+# ARKITEKTUR BEGREBER
 
 ---
 
@@ -1068,7 +1073,7 @@ Undgå at skrive den samme kode flere steder.
 Lav en komponent eller funktion i stedet og brug den.
 
 ```tsx
-// ❌ Kopieret kode — rodet og svært at vedligeholde
+// Kopieret kode — rodet og svært at vedligeholde
 // I HomePage:
 <div className="flex items-center gap-3 mb-6">
     <TrendingUp size={28} className="text-rose-accent" />
@@ -1081,7 +1086,7 @@ Lav en komponent eller funktion i stedet og brug den.
     <h1 className="text-3xl font-bold">Søg</h1>
 </div>
 
-// ✅ Genbrugelig komponent — rent og nemt at vedligeholde
+// Genbrugelig komponent — rent og nemt at vedligeholde
 <PageHeader icon={TrendingUp} title="Top Anime" />
 <PageHeader icon={Search} title="Søg" />
 ```
@@ -1098,13 +1103,13 @@ AnimeCard læser fra Redux (isFavorite)
 FavoritesPage læser fra Redux (liste af favoritter)
 Navbar læser fra Redux (antal favoritter som badge)
 
-Alle ser de SAMME favoritter ✅
-Ingen forvirring om hvad der er "rigtigt" ✅
+Alle ser de SAMME favoritter
+Ingen forvirring om hvad der er "rigtigt"
 ```
 
 ---
 
-# 💡 GODE FORKLARINGER TIL EKSAMEN
+# GODE FORKLARINGER AT HUSKE PÅ:
 
 ---
 
@@ -1116,22 +1121,20 @@ Ingen forvirring om hvad der er "rigtigt" ✅
 
 **"Hvad er Redux og hvornår bruger man det?"**
 > Redux er et globalt datalager som alle komponenter kan tilgå direkte.
-> Vi bruger det til data der skal deles på tværs af sider — fx favoritter.
+> Vi bruger det til data der skal deles på tværs af sider, dette kunne være fx favoritter.
 > Lokal data der kun bruges i én komponent gemmer vi i useState i stedet.
 
 **"Hvad er RTK-Query og hvad giver det os?"**
 > RTK-Query er et bibliotek til API kald der giver os loading states,
 > fejlhåndtering og caching helt automatisk.
-> Uden RTK-Query skulle vi selv skrive kode til at holde styr på om data loader,
-> om der er fejl, og om vi allerede har hentet data.
 
 **"Hvad er forskellen på Link og a-tag?"**
-> Et a-tag laver en fuld side reload — browseren henter en ny HTML side fra serveren.
-> Link fra React Router skifter URL uden reload — JavaScript opdaterer indholdet.
-> I en SPA skal vi bruge Link fordi vi aldrig vil genindlæse siden.
+> Et a-tag laver en fuld side reload, browseren henter en ny HTML side fra serveren.
+> Link fra React Router skifter URL uden reload, JavaScript opdaterer indholdet.
+> I en SPA bruger vi Link fordi vi aldrig vil genindlæse siden.
 
 **"Hvad er TypeScript interfaces?"**
-> Interfaces beskriver strukturen på vores data — hvilke felter et objekt har og deres typer.
+> Interfaces beskriver strukturen på vores data, hvilke felter et objekt har og deres typer.
 > Det hjælper os med at fange fejl tidligt og giver bedre autocomplete i VS Code.
 > Fx garanterer IAnime at et anime objekt altid har mal_id, title, score og genres.
 
@@ -1142,8 +1145,8 @@ Ingen forvirring om hvad der er "rigtigt" ✅
 > mens ?? korrekt viser 0.
 
 **"Hvad er forskellen på isLoading og isFetching?"**
-> isLoading er kun true første gang data hentes — når der ingen cache er.
-> isFetching er true hver gang RTK-Query henter data — også ved refetch.
+> isLoading er kun true første gang data hentes, altså når der ingen cache er.
+> isFetching er true hver gang RTK-Query henter data også ved refetch.
 > Vi bruger isFetching til at vise en spinner på "Load mere" knappen.
 
 **"Hvorfor bruger vi e.preventDefault() på favorit knappen?"**
