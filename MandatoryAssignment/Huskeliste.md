@@ -1,8 +1,8 @@
-# 📚 Eksamensoplæsning — AniTrack React App
+# 📚 AniTrack React App
 
 ---
 
-# 🧱 TEKNOLOGIER
+# TEKNOLOGIER
 
 ---
 
@@ -13,7 +13,7 @@ og React sørger for at opdatere det når data ændrer sig.
 
 **Grundprincip:**
 ```
-Data ændrer sig → React gentegner kun det der er ændret → Hurtig og effektiv UI
+Data ændrer sig → React gentegner kun det der er ændret, Hurtig og effektiv UI
 ```
 
 ---
@@ -39,7 +39,7 @@ Vite er det værktøj der starter og bygger vores React app.
 Det erstatter Create React App og er meget hurtigere.
 
 ```bash
-npm create vite@latest anime-app -- --template react-ts
+npm create vite@latest appName -- --template react-ts
 npm run dev    # Start udviklingsserver
 npm run build  # Byg til produktion
 ```
@@ -52,12 +52,12 @@ React Router håndterer navigation i vores SPA uden at genindlæse siden.
 **Hvorfor ikke bare `<a href>`?**
 ```
 <a href="/search">    → Browser genindlæser siden fra bunden ❌
-                         Redux store nulstilles
-                         Al data skal hentes igen
+                        Redux store nulstilles
+                        Al data skal hentes igen
 
 <Link to="/search">   → URL skifter uden reload ✅
-                         Redux store bevares
-                         Data bevares i cache
+                        Redux store bevares
+                        Data bevares i cache
 ```
 
 ---
@@ -70,7 +70,7 @@ Redux Toolkit er den moderne og anbefalede måde at bruge Redux på.
 ```
 Uden Redux — data sendes via props:
 App → HomePage → AnimeGrid → AnimeCard → (vil tilføje favorit?) 
-→ send besked op til App → send ned igen til FavoritesPage 😵
+→ send besked op til App → send ned igen til FavoritesPage.
 
 Med Redux — alle komponenter tilgår store direkte:
 AnimeCard → dispatch(addFavorite) → Redux Store ✅
@@ -85,11 +85,11 @@ Den giver os loading states, fejlhåndtering og caching gratis.
 
 **Hvad RTK-Query giver os gratis:**
 ```
-✅ isLoading  — er vi ved at hente data?
-✅ isError    — gik noget galt?
-✅ data       — det API'et returnerede
-✅ isFetching — henter vi nyt data?
-✅ Caching    — samme kald inden for 60 sek. henter ikke igen
+isLoading  — er vi ved at hente data?
+isError    — gik noget galt?
+data       — det API'et returnerede
+isFetching — henter vi nyt data?
+Caching    — samme kald inden for 60 sek. henter ikke igen
 ```
 
 ---
@@ -138,7 +138,7 @@ GET /anime?genres=1         → Anime inden for en genre
 
 ---
 
-# ⚛️ REACT KONCEPTER
+# REACT KONCEPTER
 
 ---
 
@@ -202,20 +202,20 @@ setPage(prev => prev + 1)
 
 ---
 
-## JSX
-JSX er en syntaks der lader os skrive HTML-lignende kode i JavaScript.
+## TSX
+TSX er en syntaks der lader os skrive HTML-lignende kode i TypeScript.
 
 ```tsx
-// JSX — ligner HTML men er JavaScript
+// JSX — ligner HTML men er TypeScript
 const element = <h1 className="text-white">{anime.title}</h1>
 
-// Kompileres til JavaScript bag scenen
+// Kompileres til TypeScript bag scenen
 const element = React.createElement('h1', { className: 'text-white' }, anime.title)
 ```
 
 **Vigtige forskelle fra HTML:**
 ```tsx
-// HTML        → JSX
+// HTML        → TSX
 class           → className
 for             → htmlFor
 onclick         → onClick
@@ -241,7 +241,7 @@ if (!data) return null
 ---
 
 ## .map() i JSX
-Loop igennem et array og lav et JSX element for hvert element.
+Loop igennem et array og lav et TSX element for hvert element.
 `key` er påkrævet så React kan holde styr på elementerne.
 
 ```tsx
@@ -254,7 +254,7 @@ Loop igennem et array og lav et JSX element for hvert element.
 
 ---
 
-# 🔀 REACT ROUTER KONCEPTER
+# REACT ROUTER KONCEPTER
 
 ---
 
@@ -345,7 +345,7 @@ navigate('/search') // Gå til søgesiden
 
 ---
 
-# 🗃️ REDUX KONCEPTER
+# REDUX KONCEPTER
 
 ---
 
