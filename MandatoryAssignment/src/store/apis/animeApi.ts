@@ -24,6 +24,8 @@ export const animeApi = createApi({
                     q: searchTerm || undefined,
                     genres: genreId || undefined,
                     limit: 20,
+                    order_by: 'score',
+                    sort: 'desc',
                 },
                 method: 'GET',
             }),
