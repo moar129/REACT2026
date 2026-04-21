@@ -8,7 +8,7 @@ import { Heart, Trash2 } from 'lucide-react'
 function FavoritesPage() {
 
     // Henter favoritter direkte fra Redux store
-    // Ingen API kald her — data ligger allerede i Redux!
+    // Ingen API kald her, data ligger allerede i Redux
     const favorites = useSelector((state: RootState) => state.favorites.animeItems)
     const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ function FavoritesPage() {
                     </span> favoritter
                 </p>
             )}
-            {favorites.length === 0 && (
+            {favorites.length === 0 && ( 
                 <div className="flex flex-col items-center justify-center py-20 gap-4">
                     <Heart size={64} className="text-gray-700" />
                     <h2 className="text-xl font-semibold text-gray-400">

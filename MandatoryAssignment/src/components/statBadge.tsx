@@ -5,7 +5,7 @@ import type { LucideIcon } from 'lucide-react'
 function StatBadge({ icon: Icon, value, iconClass }: {icon: LucideIcon, value: string | number, iconClass?: string}) {
     return (
         <div className="flex items-center gap-2 bg-bg-surface border border-border rounded-lg px-4 py-2">
-            <Icon size={18} className={iconClass ?? 'text-rose-accent'} />
+            <Icon size={18} className={iconClass ?? 'text-rose-accent'} /> {/* Hvis iconClass er angivet, bruger vi det, ellers bruger vi 'text-rose-accent' */}
             <span className="text-white font-medium">{value}</span>
         </div>
     )

@@ -7,7 +7,7 @@ import { addFavorite, removeFavorite } from '../store/slices/favoritesSlice'
 
 
 function AnimeCard({ anime }: { anime: IAnime }) { // this is the props for the anime card, it takes an anime object of type IAnime
-    const dispatch = useDispatch()
+    const dispatch = useDispatch() // this is the dispatch function from redux, it allows us to dispatch actions to the store
     const favorites = useSelector((state: RootState) => state.favorites.animeItems)
     const isFavorite = favorites.some(fav => fav.mal_id === anime.mal_id)
     const handleFavorite = (e: React.MouseEvent) => { // happens when the user clicks the favorite button.

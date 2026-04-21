@@ -12,7 +12,7 @@ function GenreList({ genres }: { genres: IGenre[] }) {
                     // stopPropagation forindrer at Link inde i et andet
                     // klikbart element (fx AnimeCard) trigger begge på én gang
                     state={{ genreName: genre.name }}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => e.stopPropagation()} // forhindrer at klik på genre-linket også trigger klik på overordnet kort
                     className="bg-rose-accent/20 text-rose-hover 
                                border border-rose-accent/30
                                px-3 py-1 rounded-full text-sm

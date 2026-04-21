@@ -41,7 +41,7 @@ function AnimeDetailPage() {
                         {anime.score && (<StatBadge icon={Star} value={anime.score} iconClass="text-yellow-400 fill-yellow-400"/>)}
                         <StatBadge icon={Tv} value={anime.episodes ? `${anime.episodes} episoder` : 'Ukendt antal'} />
                         {anime.rank && (<StatBadge icon={Trophy} value={`Rank #${anime.rank}`} />)}
-                        {anime.members && (<StatBadge icon={Users} value={`${anime.members.toLocaleString()} medlemmer`} />)}
+                        {anime.members && (<StatBadge icon={Users} value={`${anime.members.toLocaleString()} medlemmer`} />)} {/* toLocaleString() formaterer tallet med tusind-separatorer, f.eks. 10000 -> 10,000 */}
                     </div>
                     <GenreList genres={anime.genres} />
 

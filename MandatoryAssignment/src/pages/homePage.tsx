@@ -19,7 +19,7 @@ function HomePage() {
     // setFilter er funktionen vi kalder når brugeren klikker en knap
     const [filter, setFilter] = useState('')
 
-    // RTK-Query giver os tre nyttige værdier tilbage:
+    // RTK-Query giver os tre værdier tilbage:
     // data      = selve anime-listen når den er hentet
     // isLoading = true mens den henter data
     // isError   = true hvis noget gik galt
@@ -31,7 +31,7 @@ function HomePage() {
             {/* FILTER KNAPPER, Vi bruger .map() til at lave én knap for hvert filter i FILTERS listen */}
             <div className="flex gap-2 mb-8">
                 {FILTERS.map(f => (
-                    <button key={f.value} onClick={() => setFilter(f.value)}
+                    <button key={f.value} onClick={() => setFilter(f.value)} 
                         className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200 ${
                             filter === f.value
                                 ? 'bg-rose-accent text-white' : 'bg-bg-surface border border-border text-gray-400 hover:text-white hover:border-rose-accent'}`}>

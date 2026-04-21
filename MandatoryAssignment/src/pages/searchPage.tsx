@@ -7,11 +7,11 @@ import LoadingSpinner from '../components/loading'
 import ErrorMessage from '../components/errorMessage'
 
 function SearchPage() {
-    const [inputValue, setInputValue] = useState('')
-    const [searchTerm, setSearchTerm] = useState('')
-    const [selectedGenre, setSelectedGenre] = useState('')
+    const [inputValue, setInputValue] = useState('') // Dette er det vi binder til input-feltet. Det opdateres hver gang brugeren skriver noget
+    const [searchTerm, setSearchTerm] = useState('') // Dette er det faktiske søgeterm vi sender til API'et. Det opdateres først når brugeren klikker "Søg" eller trykker Enter
+    const [selectedGenre, setSelectedGenre] = useState('') // Gemmer den valgte genre fra dropdown. Starter som tom string = "Alle genres"
 
-    // Henter alle genres til dropdown — kører kun én gang
+    // Henter alle genres til dropdown
     const { data: genreData } = useFetchAnimeGenresQuery()
 
     // Skip søgning hvis hverken søgeterm eller genre er valgt
@@ -40,11 +40,7 @@ function SearchPage() {
     return (
         <div>
             <PageHeader icon={Search} title="Søg efter anime" />
-
-            {/* SØGEFELT + GENRE DROPDOWN */}
             <div className="flex flex-col sm:flex-row gap-3 mb-8">
-
-                {/* Tekstsøgning */}
                 <input
                     type="text"
                     value={inputValue}
@@ -62,8 +58,6 @@ function SearchPage() {
                                focus:outline-none focus:border-rose-accent
                                transition-colors duration-200"
                 />
-
-                {/* Genre dropdown */}
                 <select
                     value={selectedGenre}
                     onChange={(e) => handleGenreChange(e.target.value)}
@@ -78,8 +72,6 @@ function SearchPage() {
                         </option>
                     ))}
                 </select>
-
-                {/* Søgeknap */}
                 <button
                     onClick={handleSearch}
                     className="flex items-center justify-center gap-2 bg-rose-accent 
@@ -88,10 +80,8 @@ function SearchPage() {
                     <Search size={18} />
                     Søg
                 </button>
-
             </div>
 
-            {/* Hvad der søges efter */}
             {hasSearched && !isLoading && (
                 <p className="text-gray-400 mb-6">
                     {searchTerm && (
@@ -108,6 +98,7 @@ function SearchPage() {
 
             {isLoading && <LoadingSpinner />}
             {isError && <ErrorMessage />}
+            
 
             {/* Ingen resultater */}
             {data && data.data.length === 0 && (
