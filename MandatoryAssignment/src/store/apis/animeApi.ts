@@ -10,7 +10,7 @@ export const animeApi = createApi({
             query: (filter) => ({
                 url: 'top/anime',
                 params: {
-                    type: filter || undefined,
+                    type: filter || undefined, // hvis searchTerm er en tom string, sendes det som undefined ingen søgning
                     limit: 20,
                 },
                 method: 'GET',
