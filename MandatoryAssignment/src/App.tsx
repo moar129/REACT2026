@@ -9,7 +9,7 @@ import NotFoundPage from './pages/notFoundPage'
 
 function App() {
   return (
-    <BrowserRouter>
+    
       <div className="min-h-screen bg-bg-primary text-white">
         <Navbar />
         <main className="container mx-auto px-4 py-8">
@@ -23,7 +23,6 @@ function App() {
           </Routes>
         </main>
       </div>
-    </BrowserRouter>
   )
 }
 
